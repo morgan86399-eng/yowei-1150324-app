@@ -3,9 +3,10 @@
 import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { supabase } from "@/lib/supabaseClient";
+import { createClient } from "@/lib/supabaseClient";
 
 function CheckoutContent() {
+  const supabase = createClient();
   const searchParams = useSearchParams();
   const success = searchParams.get("success");
   
