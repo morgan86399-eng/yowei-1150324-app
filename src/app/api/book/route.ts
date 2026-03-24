@@ -41,9 +41,10 @@ export async function POST(req: Request) {
     // 為了不讓程式當掉，先用 try-catch 包起來
     try {
       // 請老闆將以下兩行換成真實的 Gmail 與應用程式密碼
-      const OWNER_EMAIL = "m0919246182@gmail.com"; 
-      const OWNER_APP_PASSWORD = "reixvllajjzjisrl";
+      const OWNER_EMAIL = process.env.OWNER_EMAIL || "your_gmail@gmail.com"; 
+      const OWNER_APP_PASSWORD = process.env.OWNER_APP_PASSWORD || "your_app_password";
 
+      if (OWNER_EMAIL !== "your_gmail@gmail.com") {
         const transporter = nodemailer.createTransport({
           service: 'gmail',
           auth: {
@@ -69,6 +70,9 @@ export async function POST(req: Request) {
 
         await transporter.sendMail(mailOptions);
         console.log("Email sent successfully!");
+      } else {
+        console.log("信件未發送：老闆尚未設定 Gmail 應用程式密碼。");
+      }
     } catch (emailErr) {
       console.error("寄信失敗:", emailErr);
       // 寄信失敗不影響扣款成功
