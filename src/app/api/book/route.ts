@@ -44,7 +44,6 @@ export async function POST(req: Request) {
       const OWNER_EMAIL = "m0919246182@gmail.com"; 
       const OWNER_APP_PASSWORD = "reixvllajjzjisrl";
 
-      if (OWNER_EMAIL !== "your_gmail@gmail.com") {
         const transporter = nodemailer.createTransport({
           service: 'gmail',
           auth: {
@@ -70,9 +69,6 @@ export async function POST(req: Request) {
 
         await transporter.sendMail(mailOptions);
         console.log("Email sent successfully!");
-      } else {
-        console.log("信件未發送：老闆尚未設定 Gmail 應用程式密碼。");
-      }
     } catch (emailErr) {
       console.error("寄信失敗:", emailErr);
       // 寄信失敗不影響扣款成功
